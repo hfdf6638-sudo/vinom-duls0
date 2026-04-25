@@ -173,7 +173,7 @@ local function ShowCenterText(msg, duration)
 end
 
 -- 👇 النص (انجليزي فوق + عربي تحت)
-ShowCenterText("Free for 3 days\nمايأ 3 ةدمل يناجم", 5)
+ShowCenterText("Free for 3 days\n)
 
 -- Discord Billboard
 task.spawn(function()
