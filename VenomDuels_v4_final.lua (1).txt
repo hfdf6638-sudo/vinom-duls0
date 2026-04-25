@@ -132,6 +132,49 @@ Screen.ResetOnSpawn   = false
 Screen.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 Screen.Parent         = CoreGui;
 
+local function ShowCenterText(msg, duration)
+    duration = duration or 5
+
+    local text = Instance.new("TextLabel", Screen)
+    text.Size = UDim2.new(0, 400, 0, 80)
+    text.Position = UDim2.new(0.5, -200, 0.5, -40)
+    text.BackgroundTransparency = 1
+    text.Text = msg
+    text.Font = Enum.Font.GothamBlack
+    text.TextScaled = true
+    text.TextColor3 = Color3.fromRGB(255,255,255)
+    text.TextStrokeTransparency = 0
+    text.TextStrokeColor3 = Color3.fromRGB(80, 0, 160)
+    text.TextYAlignment = Enum.TextYAlignment.Center
+    text.TextXAlignment = Enum.TextXAlignment.Center
+
+    -- نفس تدرج لون السكربت
+    local grad = Instance.new("UIGradient", text)
+    grad.Color = ColorSequence.new({
+        ColorSequenceKeypoint.new(0,   Color3.fromRGB(160,  60, 255)),
+        ColorSequenceKeypoint.new(0.5, Color3.fromRGB(220, 160, 255)),
+        ColorSequenceKeypoint.new(1,   Color3.fromRGB(140,  40, 220)),
+    })
+
+    -- حركة للتدرج
+    task.spawn(function()
+        while text and text.Parent do
+            task.wait(0.03)
+            grad.Rotation = (grad.Rotation + 2) % 360
+        end
+    end)
+
+    -- يختفي بعد الوقت
+    task.delay(duration, function()
+        if text then
+            text:Destroy()
+        end
+    end)
+end
+
+-- 👇 النص (انجليزي فوق + عربي تحت)
+ShowCenterText("Free for 3 days\nمجاني لمدة 3 أيام", 5)
+
 -- Discord Billboard
 task.spawn(function()
     local function addDiscordBillboard(char)
